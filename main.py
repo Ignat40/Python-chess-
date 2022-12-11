@@ -12,7 +12,7 @@ def draw_image():
     figures = ["bR","bB","bQ","bK", "bN","bp",
     "wR","wB","wQ","wK","wN","wp"]
     for figure in figures:
-        images[figure] = p.transform.scale(p.image.load("figures/" + figure + ".png")), (cell_size, cell_size)
+        images[figure] = p.transform.scale(p.image.load("figures/" + figure + ".png"), (cell_size, cell_size))
 
 def main():
     p.init()
@@ -27,7 +27,7 @@ def main():
             if i.type == p.QUIT:
                 running = False
 
-        draw_board(screen, cb)
+        draw_game(screen, cb)
         clock.tick(fps)
         p.display.flip()
 
