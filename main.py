@@ -22,10 +22,28 @@ def main():
     cb = engine.chess_board() 
     draw_image()
     running = True
+    selected_squere = ()
+    player_clicks = []
     while running:
         for i in p.event.get():
             if i.type == p.QUIT:
                 running = False
+            elif i.type == p.MOUSEBUTTONDOWN:
+                location = p.mouse.get_pos()
+                col = location[0]//cell_size
+                row = location[1]//cell_size
+                if selected_squere == (row, col):
+                    selected_squere = () # deselcts
+                    player_clicks = [] # also clears players clicks 
+                else:
+                    selected_squere = (row, col)
+                    player_clicks.append(selected_squere)
+                if len(player_clicks) == 2:
+                    move = engine.Move(player_clicks[0], player_clicks[1], cb.board)
+                    print(move.get_chess_notation())
+                    cb.make_move(move)
+                    selected_squere = ()
+                    player_clicks = []
 
         draw_game(screen, cb)
         clock.tick(fps)
@@ -35,7 +53,7 @@ def draw_game(screen, cb):
     draw_board(screen)
     draw_pieces(screen, cb.board)
 
-def draw_board(screen): #noting that the top left square is always white
+def draw_board(screen): #keeping in mind that the top left square is always white
 
     colors = [p.Color("white"), p.Color("grey")]
     for rows in range(board_size):
