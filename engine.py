@@ -14,7 +14,7 @@ class chess_board():
         self.move_log = []  
       
     def make_move(self,move):
-        self.board[move.start_row][move.start_col] == "--"
+        self.board[move.start_row][move.start_col] = "--"
         self.board[move.end_row][move.end_col] = move.moved_pieces 
         self.move_log.append(move) 
         self.white_to_move = not self.white_to_move
