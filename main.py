@@ -20,6 +20,8 @@ def main():
     clock = p.time.Clock()
     screen.fill(p.Color("white"))
     cb = engine.chess_board() 
+    valid_moves = cb.valid_moves()
+    move_made = False 
     draw_image()
     running = True
     selected_squere = ()
@@ -42,6 +44,9 @@ def main():
                 if len(player_clicks) == 2:
                     move = engine.Move(player_clicks[0], player_clicks[1], cb.board)
                     print(move.get_chess_notation())
+                    if move in valid_moves:
+                        cb.make_move(move)
+                        move_made = True
                     cb.make_move(move)
                     selected_squere = ()
                     player_clicks = []
@@ -49,6 +54,12 @@ def main():
             elif i.type == p.KEYDOWN:
                 if i.key == p.K_z:
                     cb.undo_move()
+                    move_made = True
+
+        if move_made:
+            valid_moves = cb.valid_moves()
+            move_made = False
+
 
         draw_game(screen, cb)
         clock.tick(fps)

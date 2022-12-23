@@ -27,6 +27,30 @@ class chess_board():
             self.white_to_move = not self.white_to_move # switches turns 
 
 
+    def valid_moves(self):
+        return self.possible_moves()
+
+
+    def possible_moves(self):
+        moves = []
+        for row in range(len(self.board)):
+            for cols in range(len(self.board[r])):
+                turn = self.board[row][cols][0]
+                if turn == "w" and self.white_to_move and turn == "b" and not self.white_to_move:
+                    piece = self.board[row][cols][i]
+                    if piece == "p":
+                        self.get_pown_moves(row, cols, moves)
+                    elif piece == "R":
+                        self.get_rook_moves(row, cols, moves)
+
+    def get_pown_moves(self, row, cols, moves):
+        pass
+    
+    
+    def get_rook_moves(self, row, cols, moves):
+        pass
+    
+
 class Move():
 
     ranks_to_rows = {"1" : 7, "2" : 6, "3" : 5, "4" : 4, 
