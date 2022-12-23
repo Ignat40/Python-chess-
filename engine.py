@@ -19,7 +19,12 @@ class chess_board():
         self.move_log.append(move) 
         self.white_to_move = not self.white_to_move
 
-
+    def undo_move(self):
+        if len(self.move_log) != 0: # makes sure that there is a move to be undone 
+            move = self.move_log.pop()
+            self.board[move.start_row][move.start_col] = move.moved_pieces
+            self.board[move.end_row][move.end_col] = move.captured_pieces
+            self.white_to_move = not self.white_to_move # switches turns 
 
 
 class Move():

@@ -28,6 +28,7 @@ def main():
         for i in p.event.get():
             if i.type == p.QUIT:
                 running = False
+
             elif i.type == p.MOUSEBUTTONDOWN:
                 location = p.mouse.get_pos()
                 col = location[0]//cell_size
@@ -44,6 +45,10 @@ def main():
                     cb.make_move(move)
                     selected_squere = ()
                     player_clicks = []
+
+            elif i.type == p.KEYDOWN:
+                if i.key == p.K_z:
+                    cb.undo_move()
 
         draw_game(screen, cb)
         clock.tick(fps)
