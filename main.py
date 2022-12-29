@@ -20,7 +20,7 @@ def main():
     clock = p.time.Clock()
     screen.fill(p.Color("white"))
     cb = engine.chess_board() 
-    valid_moves = cb.valid_moves()
+    valid_moves = cb.all_valid_moves()
     move_made = False 
     draw_image()
     running = True
@@ -47,7 +47,6 @@ def main():
                     if move in valid_moves:
                         cb.make_move(move)
                         move_made = True
-                    cb.make_move(move)
                     selected_squere = ()
                     player_clicks = []
 
@@ -57,7 +56,7 @@ def main():
                     move_made = True
 
         if move_made:
-            valid_moves = cb.valid_moves()
+            valid_moves = cb.all_valid_moves()
             move_made = False
 
 

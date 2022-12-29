@@ -27,24 +27,27 @@ class chess_board():
             self.white_to_move = not self.white_to_move # switches turns 
 
 
-    def valid_moves(self):
+    def all_valid_moves(self):
         return self.possible_moves()
 
 
     def possible_moves(self):
-        moves = []
+        moves = [Move((6,4),(4,4), self.board)]
         for row in range(len(self.board)):
-            for cols in range(len(self.board[r])):
+            for cols in range(len(self.board[row])):
                 turn = self.board[row][cols][0]
-                if turn == "w" and self.white_to_move and turn == "b" and not self.white_to_move:
-                    piece = self.board[row][cols][i]
-                    if piece == "p":
+                if (turn == 'w' and self.white_to_move) and (turn == 'b' and not self.white_to_move):
+                    piece = self.board[row][cols][1]
+                    if piece == 'p':
                         self.get_pown_moves(row, cols, moves)
-                    elif piece == "R":
+                    elif piece == 'R':
                         self.get_rook_moves(row, cols, moves)
+        return moves 
 
     def get_pown_moves(self, row, cols, moves):
-        pass
+        if self.white_to_move:
+            if self.board[row - 1][cols] == "--":
+                moves.append(Move((row, cols), (row - 1, cols), self.board))
     
     
     def get_rook_moves(self, row, cols, moves):
@@ -69,6 +72,14 @@ class Move():
         self.end_col = ending_square[1]
         self.moved_pieces = board[self.start_row][self.start_col]
         self.captured_pieces = board[self.end_row][self.end_col]
+        self.move_ID = self.start_row * 1000 + self.start_col * 100 + self.end_row * 10 + self.end_col
+        print(self.move_ID)
+
+    def __eq__(self, other):
+        if isinstance(other, Move):
+            return self.move_ID == other.move_ID
+        return False
+
 
     def get_chess_notation(self):
         return self.get_rank_file(self.start_row, self.start_col) + self.get_rank_file(self.end_row, self.end_col)
