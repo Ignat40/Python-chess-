@@ -72,7 +72,26 @@ class chess_board():
 
     
     def get_rook_moves(self, row, cols, moves):
-        pass
+        directions = ((-1, 0), (0, -1), (1,0), (0, 1))
+        opposite_color = "b" if self.white_to_move else "w"
+        for d in directions:
+            for i in range(1,8):
+                end_row = row + d[0] * i 
+                end_col = cols + d[1] * i
+                if 0 <= end_row < 8 and 0 <= end_col < 8:
+                    end_piece = self.board[end_row][end_col]
+                    if end_piece == "--":
+                        moves.append(Move((row, cols), (end_row, end_col), self.board))
+                    elif end_piece[0] == opposite_color:
+                        moves.append(Move((row, cols), (end_row, end_col), self.board))
+                        break
+                    else:
+                        break
+                else:
+                    break
+                
+
+                
 
     def get_knight_moves(self, row, cols, moves):
         pass
