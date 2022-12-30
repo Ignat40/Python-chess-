@@ -128,8 +128,9 @@ class chess_board():
                 
 
 
-    def get_queen_moves(self, row, cols, moves):
-        pass
+    def get_queen_moves(self, row, cols, moves): #easy :)))
+        self.get_bishop_moves(row, cols, moves)
+        self.get_rook_moves(row, cols, moves)
 
     def get_king_moves(self, row, cols, moves):
         pass
