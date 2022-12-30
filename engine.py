@@ -94,7 +94,18 @@ class chess_board():
                 
 
     def get_knight_moves(self, row, cols, moves):
-        pass
+        knight_moves = ((-2, -1), (-2, -1), (-1, -2), (-1, -2), (1, 2), (2, -1), (2, 1))
+        op_color = "w" if self.white_to_move else "b"
+        for k in knight_moves:
+            end_row = row + k[0]
+            end_col = cols + k[1]
+            if 0 <= end_row < 8 and 0 <= end_col < 8:
+                end_piece = self.board[end_row][end_col]
+                if end_piece[0] != op_color:
+                    moves.append(Move((row, cols), (end_row, end_col), self.board))
+
+
+
 
     def get_bishop_moves(self, row, cols, moves):
         directions = ((-1, -1), (-1, 1), (1,-1), (1, 1))
